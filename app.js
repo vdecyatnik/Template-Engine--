@@ -70,7 +70,61 @@ function askUserForEmployeeType(){
 
 
 ]).then(( newEmployeeChoiceData ) => {
+
+   
   
+
+
+
+
+
+
+
+
+    function askUserForEngineerInfo(){
+
+        return inquirer
+        .prompt([
+
+            {
+                type: 'input',
+                message: 'What is your name?',
+                name: 'name',
+
+
+            },
+
+            {
+                type: 'input',
+                message: 'What is your employee id?',
+                name: 'id',
+            },
+
+            {
+                type: 'input',
+                message: 'What is your Email?',
+                name: 'email',
+            },
+
+            {
+                type: 'input',
+                message: 'What is your github username?',
+                name: 'github',
+            }
+
+
+
+
+
+        ])
+
+
+
+
+
+
+
+    }
 
 
 
