@@ -19,9 +19,27 @@ function askUserForManagerInfo(){
 
     return inquirer.prompt([
         {
-            message: "name",
-            name: "name",
-            type: "input"
+            type: 'input',
+            message: 'What is your name?',
+            name: 'name',
+        },
+
+        {
+            type: 'input',
+            message: 'What is your employee id?',
+            name: 'id',
+        },
+
+        {
+            type: 'input',
+            message: 'What is your email?',
+            name: 'email',
+        },
+
+        {
+            type: 'input',
+            message: 'What is your office number?',
+            name: 'officeNumber',
         }
     ]).then(( managerData ) =>  {
 
@@ -43,14 +61,18 @@ function askUserForEmployeeType(){
 
     return inquirer.prompt([
         {
-            message: "name",
-            name: "name",
-            type: "input"
+           type: 'list',
+           message: 'What type of employee would you like to add?',
+           choices: ["Intern", "Engineer", "None"],
+           name: "type",
+           
         }
 
 
 ]).then(( newEmployeeChoiceData ) => {
   
+
+
 
 //If they selected a new Engineer
 askUserForEngineerInfo();
@@ -86,7 +108,7 @@ function askUserForInterInfo(){
 
 askUserForManagerInfo();
 
-function createhtmlFile();
+// function createhtmlFile();
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
