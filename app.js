@@ -67,20 +67,17 @@ function askUserForEmployeeType() {
       },
     ])
     .then((response) => {
-      //If the user selected a new Engineer
-      if( response.type==="Engineer"){
+      
+      if (response.type === "Engineer") {
         askUserForEngineerInfo();
-      }else{
-        if( response.type==="Intern"){
-          askUserForInternInfo();
-      }else{
-        createhtmlFile();
+      } else if (response.type === "Intern") {
+        
+        askUserForInternInfo();
+      } else {
+       createhtmlFile();
       }
-    
-     
-    }})
+    });
 }
-
 function askUserForEngineerInfo() {
   return inquirer
     .prompt([
@@ -151,12 +148,13 @@ function askUserForInternInfo() {
     ])
     .then((internData) => {
       const newIntern = new Intern(
-        internData.name = name,
-        internData.email = email,
-        internData.id = id,
-        internData.school = school
+        internData.name,
+        internData.email, 
+        internData.id,
+        internData.school, 
       );
-      employeeList.push( newIntern );
+      
+      employeeList.push(newIntern);
 
       askUserForEmployeeType();
     });
@@ -166,6 +164,13 @@ function createhtmlFile() {
   const htmlContent = render(employeeList);
 
   //User the FS module to create the output file
+
+  fs.writeFile('teamMembers.html', htmlContent, function (err) {
+    if (err) throw err;
+    console.log('Saved!');
+  });
+
+
 }
 
 askUserForManagerInfo();
