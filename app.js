@@ -50,7 +50,6 @@ function askUserForManagerInfo() {
       );
 
       employeeList.push(newManager);
-     
 
       askUserForEmployeeType();
     });
@@ -67,121 +66,104 @@ function askUserForEmployeeType() {
         name: "type",
       },
     ])
-    .then((newEmployeeChoiceData) => {
-
-        
+    .then((response) => {
       //If the user selected a new Engineer
-      askUserForEngineerInfo();
-
-      //ELSE if the user selected a new Intern
-      askUserForInternInfo();
-
-      //ELSE
-      createhtmlFile();
-    });
+      if( response.type==="Engineer"){
+        askUserForEngineerInfo();
+      }else{
+        if( response.type==="Intern"){
+          askUserForInternInfo();
+      }else{
+        createhtmlFile();
+      }
+    
+     
+    }})
 }
 
 function askUserForEngineerInfo() {
-  return inquirer.prompt([
-    {
-      type: "input",
-      message: "What is your engineers name?",
-      name: "name",
-    },
+  return inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is your engineers name?",
+        name: "name",
+      },
 
-    {
-      type: "input",
-      message: "What is your engineers employee id?",
-      name: "id",
-    },
+      {
+        type: "input",
+        message: "What is your engineers employee id?",
+        name: "id",
+      },
 
-    {
-      type: "input",
-      message: "What is your engineers  Email?",
-      name: "email",
-    },
+      {
+        type: "input",
+        message: "What is your engineers  Email?",
+        name: "email",
+      },
 
-    {
-      type: "input",
-      message: "What is your engineers github username?",
-      name: "github",
-    },
-    
-  ])
-  .then((engineerData)=> {
+      {
+        type: "input",
+        message: "What is your engineers github username?",
+        name: "github",
+      },
+    ])
+    .then((engineerData) => {
+      const newEngineer = new Engineer(
+        engineerData.name,
+        engineerData.email,
+        engineerData.id,
+        engineerData.github
+      );
 
+      employeeList.push(newEngineer);
 
-    const newEngineer = new Engineer(
-      engineerData.name,
-      engineerData.email,
-      engineerData.id,
-      engineerData.github
-    );
-
-    employeeList.push(newEngineer);
-
-    askUserForEmployeeType();
-   
-
-
-
-
-
-
-  });
+      askUserForEmployeeType();
+    });
 }
 
-
-
-
-
 function askUserForInternInfo() {
-  return inquirer.prompt([
-    {
-      type: "input",
-      message: "What is your interns name?",
-      name: "name",
-    },
+  return inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is your interns name?",
+        name: "name",
+      },
 
-    {
-      type: "input",
-      message: "What is your interns employee id?",
-      name: "id",
-    },
+      {
+        type: "input",
+        message: "What is your interns employee id?",
+        name: "id",
+      },
 
-    {
-      type: "input",
-      message: "What is your interns Email?",
-      name: "email",
-    },
+      {
+        type: "input",
+        message: "What is your interns Email?",
+        name: "email",
+      },
 
-    {
-      type: "input",
-      message: "What College do you attend?",
-      name: "school",
-    },
-  ])
-  .then(( internData ) =>{
+      {
+        type: "input",
+        message: "What College do you attend?",
+        name: "school",
+      },
+    ])
+    .then((internData) => {
+      const newIntern = new Intern(
+        internData.name = name,
+        internData.email = email,
+        internData.id = id,
+        internData.school = school
+      );
+      employeeList.push( newIntern );
 
-    const newIntern = new Intern(
-      internData.name = name,
-      internData.email = email,
-      internData.id = id,
-      internData.school = school,
-    )
-
-
-
-
-
-
-
-  });
+      askUserForEmployeeType();
+    });
 }
 
 function createhtmlFile() {
-
-  const htmlContent = render( employeeList );
+  const htmlContent = render(employeeList);
 
   //User the FS module to create the output file
 }
