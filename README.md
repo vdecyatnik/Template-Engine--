@@ -31,6 +31,7 @@ The Template Engine is a command line application that generates an HTML file. I
 
 # Links
 
-Github Repository https://github.com/vdecyatnik/Template-Engine--
+Github Repository
+ https://github.com/vdecyatnik/Template-Engine--
 
-Video of working Application 
+Video of working Application https://drive.google.com/file/d/1y8BJGl0QMtXM-226v7MUYBsiPkmkdWce/view
