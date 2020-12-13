@@ -10,154 +10,133 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-
 const employeeList = [];
 
-
 // Ask for manager info
-function askUserForManagerInfo(){
+function askUserForManagerInfo() {
+  return inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is your managers name?",
+        name: "name",
+      },
 
-    return inquirer.prompt([
-        {
-            type: 'input',
-            message: 'What is your name?',
-            name: 'name',
-        },
+      {
+        type: "input",
+        message: "What is your managers employee id?",
+        name: "id",
+      },
 
-        {
-            type: 'input',
-            message: 'What is your employee id?',
-            name: 'id',
-        },
+      {
+        type: "input",
+        message: "What is your managers email?",
+        name: "email",
+      },
 
-        {
-            type: 'input',
-            message: 'What is your email?',
-            name: 'email',
-        },
+      {
+        type: "input",
+        message: "What is your managers office number?",
+        name: "officeNumber",
+      },
+    ])
+    .then((managerData) => {
+      //
+      const newManager = new Manager(
+        managerData.name,
+        managerData.email,
+        managerData.id,
+        managerData.officeNumber
+      );
 
-        {
-            type: 'input',
-            message: 'What is your office number?',
-            name: 'officeNumber',
-        }
-    ]).then(( managerData ) =>  {
+      employeeList.push(newManager);
 
-        //
-        const newManager = new Manager( managerData.name, managerData.email, managerData.id );
-
-        employeeList.push( newManager );
-
-        askUserForEmployeeType();
-
+      askUserForEmployeeType();
     });
-
-}
-// Managers ID
-// Email
-// Office Number 
-// Ask user for next employee type 
-function askUserForEmployeeType(){
-
-    return inquirer.prompt([
-        {
-           type: 'list',
-           message: 'What type of employee would you like to add?',
-           choices: ["Intern", "Engineer", "None"],
-           name: "type",
-           
-        }
-
-
-]).then(( newEmployeeChoiceData ) => {
-
-   
-  
-
-
-
-
-
-
-
-
-    function askUserForEngineerInfo(){
-
-        return inquirer
-        .prompt([
-
-            {
-                type: 'input',
-                message: 'What is your name?',
-                name: 'name',
-
-
-            },
-
-            {
-                type: 'input',
-                message: 'What is your employee id?',
-                name: 'id',
-            },
-
-            {
-                type: 'input',
-                message: 'What is your Email?',
-                name: 'email',
-            },
-
-            {
-                type: 'input',
-                message: 'What is your github username?',
-                name: 'github',
-            }
-
-
-
-
-
-        ])
-
-
-
-
-
-
-
-    }
-
-
-
-//If they selected a new Engineer
-askUserForEngineerInfo();
-
-//Else if the user selected a new Intern
-askUserForInterInfo();
-
-//Else 
-createhtmlFile();
-    const htmlContent = render( employeeList );
-
-    // Use the fs module to create the output file.
-
-});
-
-
-
-// Ask user for engineer info
-function askUserForEngineerInfo(){
-
-
 }
 
-// Ask the user for intern info
-function askUserForInterInfo(){
+// Ask user for next employee type
+function askUserForEmployeeType() {
+  return inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "What type of employee would you like to add?",
+        choices: ["Intern", "Engineer", "None"],
+        name: "type",
+      },
+    ])
+    .then((newEmployeeChoiceData) => {
+      //If the user selected a new Engineer
+      askUserForEngineerInfo();
 
+      //ELSE if the user selected a new Intern
+      askUserForInternInfo();
 
-
+      //ELSE
+      createHTMLFile();
+    });
 }
 
+function askUserForEngineerInfo() {
+  return inquirer.prompt([
+    {
+      type: "input",
+      message: "What is your engineers name?",
+      name: "name",
+    },
 
+    {
+      type: "input",
+      message: "What is your engineers employee id?",
+      name: "id",
+    },
+
+    {
+      type: "input",
+      message: "What is your engineers  Email?",
+      name: "email",
+    },
+
+    {
+      type: "input",
+      message: "What is your engineers github username?",
+      name: "github",
+    },
+  ]);
+}
+function askUserForInternInfo() {
+  return inquirer.prompt([
+    {
+      type: "input",
+      message: "What is your interns name?",
+      name: "name",
+    },
+
+    {
+      type: "input",
+      message: "What is your interns employee id?",
+      name: "id",
+    },
+
+    {
+      type: "input",
+      message: "What is your interns Email?",
+      name: "email",
+    },
+
+    {
+      type: "input",
+      message: "What College do you attend?",
+      name: "school",
+    },
+  ]);
+}
+
+function createhtmlFile() {
+  const htmlContent = render(employeeList);
+
+  //User the FS module to create the output file
 }
 
 askUserForManagerInfo();
