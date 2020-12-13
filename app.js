@@ -50,6 +50,7 @@ function askUserForManagerInfo() {
       );
 
       employeeList.push(newManager);
+     
 
       askUserForEmployeeType();
     });
@@ -67,6 +68,8 @@ function askUserForEmployeeType() {
       },
     ])
     .then((newEmployeeChoiceData) => {
+
+        
       //If the user selected a new Engineer
       askUserForEngineerInfo();
 
@@ -74,7 +77,7 @@ function askUserForEmployeeType() {
       askUserForInternInfo();
 
       //ELSE
-      createHTMLFile();
+      createhtmlFile();
     });
 }
 
@@ -103,8 +106,35 @@ function askUserForEngineerInfo() {
       message: "What is your engineers github username?",
       name: "github",
     },
-  ]);
+    
+  ])
+  .then((engineerData)=> {
+
+
+    const newEngineer = new Engineer(
+      engineerData.name,
+      engineerData.email,
+      engineerData.id,
+      engineerData.github
+    );
+
+    employeeList.push(newEngineer);
+
+    askUserForEmployeeType();
+   
+
+
+
+
+
+
+  });
 }
+
+
+
+
+
 function askUserForInternInfo() {
   return inquirer.prompt([
     {
@@ -130,11 +160,28 @@ function askUserForInternInfo() {
       message: "What College do you attend?",
       name: "school",
     },
-  ]);
+  ])
+  .then(( internData ) =>{
+
+    const newIntern = new Intern(
+      internData.name = name,
+      internData.email = email,
+      internData.id = id,
+      internData.school = school,
+    )
+
+
+
+
+
+
+
+  });
 }
 
 function createhtmlFile() {
-  const htmlContent = render(employeeList);
+
+  const htmlContent = render( employeeList );
 
   //User the FS module to create the output file
 }
